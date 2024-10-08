@@ -1,22 +1,29 @@
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Child from './child'
 
 function App() {
   const [count, setCount] = useState(0)
- let numbers = new Array(16_00_000).fill(0).map((_,i)=>{
-    return{
-      index: i,
-      ismagical: i=== 14_00_000
-    }    
-  })
+  const [countsec, setCountsec] = useState(0)
+
+//  let numbers = new Array(16_00_000).fill(0).map((_,i)=>{
+//     return{
+//       index: i,
+//       ismagical: i=== 14_00_000
+//     }    
+//   })
   // let magical = numbers.find(num=>num.ismagical===true)
-  let magical = useMemo(()=>numbers.find(num=>num.ismagical===true),[])
+  // let magical = useMemo(()=>numbers.find(num=>num.ismagical===true),[]);
+  let func = useCallback(()=>{
+    console.log("practiceing usecallback")
+  },[countsec])
   return (
     <>
       <div>
-        <h1>{magical.index}</h1>
+        <Child count = {countsec} func={func}  /> 
+        {/* <h1>{magical.index}</h1> */}
         <a href="https://vitejs.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
         </a>
@@ -26,9 +33,10 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+        <button onClick={() => setCountsec((countsec) => countsec + 1)}>
+          count is {countsec}
         </button>
+        
         <p>
           Edit <code>src/App.jsx</code> and save to test HMR
         </p>
